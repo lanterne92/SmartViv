@@ -10,6 +10,14 @@ from gpiozero import Energenie
 import Adafruit_DHT
 import requests
 
+#Energenie extension socket numbers
+fang_light= 2
+toothless_light= 3
+syl_light= 4
+fansocket= 1
+
+##first vivarium temperature reading- gpio pin 5
+
 # Attempt to get a sensor reading. The read_retry method will
 # retry up to 15 times, waiting 2 seconds between attempts
 #Sensorpin 5 is Fang
@@ -26,12 +34,13 @@ if humidity is None or temperature is None:
 # Otherwise, check if temperature is above threshold,
 # and if so, activate Energenie socket for cooling fan
 else:
-	fansocket = 1
-	tempthreshold = 35
+	
+	tempthreshold = 30
 
 	if temperature > tempthreshold:
 		# Activate cooling fans
 		f = Energenie(fansocket, initial_value=True)
+		f = Energenie(fang_light, initial_value=False)
 
 	else:
 		# Deactivate cooling fans
@@ -46,6 +55,8 @@ else:
     print('Failed to get reading. Try again!')
     sys.exit(1)
 
+## Second vivairum reading and publish to Thingspeak
+	
 # Attempt to get a sensor reading. The read_retry method will
 # retry up to 15 times, waiting 2 seconds between attempts
 #Sensorpin 6 is Toothless
@@ -62,12 +73,13 @@ if humidity1 is None or temperature1 is None:
 # Otherwise, check if temperature is above threshold,
 # and if so, activate Energenie socket for cooling fan
 else:
-	fansocket = 1
+	
 	tempthreshold = 35
 
 	if temperature > tempthreshold:
 		# Activate cooling fans
 		f = Energenie(fansocket, initial_value=True)
+		f = Energenie(toothless_light, initial_value=False)
 
 	else:
 		# Deactivate cooling fans

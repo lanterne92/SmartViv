@@ -26,7 +26,7 @@ if humidity is None or temperature is None:
 # Otherwise, check if temperature is above threshold,
 # and if so, activate Energenie socket for cooling fan
 else:
-	fansocket = 3
+	fansocket = 1
 	tempthreshold = 30
 
 	if temperature > tempthreshold:
