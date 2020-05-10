@@ -19,7 +19,7 @@ humidity, temperature = Adafruit_DHT.read_retry(sensormodel, sensorpin)
 
 # If either reading has failed after repeated retries,
 # abort and log message to ThingSpeak
-thingspeak_key = 'TFNNRVXKARXUD9QV'
+thingspeak_key = 'your key here'
 if humidity is None or temperature is None:
 	f = requests.post('https://api.thingspeak.com/update.json', data = {'api_key':thingspeak_key, 'status':'failed to get reading'})
 
