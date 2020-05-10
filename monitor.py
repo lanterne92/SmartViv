@@ -74,9 +74,9 @@ if humidity1 is None or temperature1 is None:
 # and if so, activate Energenie socket for cooling fan
 else:
 	
-	tempthreshold = 35
+	tempthreshold1 = 35
 
-	if temperature > tempthreshold:
+	if temperature1 > tempthreshold1:
 		# Activate cooling fans
 		f = Energenie(fansocket, initial_value=True)
 		f = Energenie(toothless_light, initial_value=False)
