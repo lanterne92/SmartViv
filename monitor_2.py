@@ -19,6 +19,7 @@ humidity, temperature = Adafruit_DHT.read_retry(sensormodel, sensorpin)
 
 # If either reading has failed after repeated retries,
 # abort and log message to ThingSpeak
+
 thingspeak_key = 'your key here'
 if humidity is None or temperature is None:
 	f = requests.post('https://api.thingspeak.com/update.json', data = {'api_key':thingspeak_key, 'status':'failed to get reading'})
@@ -27,11 +28,13 @@ if humidity is None or temperature is None:
 # and if so, activate Energenie socket for cooling fan
 else:
 	fansocket = 1
+	light = 2
 	tempthreshold = 30
 
 	if temperature > tempthreshold:
-		# Activate cooling fans
+		# Activate cooling fans, deactivate light
 		f = Energenie(fansocket, initial_value=True)
+		f = Energenie(light, initial_value=False)
 
 	else:
 		# Deactivate cooling fans
